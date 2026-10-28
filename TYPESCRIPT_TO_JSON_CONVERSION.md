@@ -8,32 +8,28 @@ All TypeScript data files have been successfully converted to JSON format for be
 
 ## 📁 Files Converted
 
-### 1. **completeLists.ts → completeLists.json**
+### Consolidated data: **allData.json**
 **Content:**
 - ✅ **99 Names of Allah (Asma ul Husna)** - Complete list with Arabic, transliteration, and meanings in 5 languages (EN, AR, TA, ML)
 - ✅ **25 Prophets (Asma ul Anbiya)** - Complete list with names, titles, and time periods
 - ✅ **40 Rabbana Duas** - All Quranic duas starting with "Rabbana" with references
 
-**Structure:**
-```json
-{
-  "asmaUlHusna": [...],      // 99 names
-  "asmaUlAnbiya": [...],     // 25 prophets
-  "rabbanaDuas": [...]       // 40 duas
-}
-```
-
-### 2. **prophetsWithDuas.ts → prophetsWithDuas.json**
-**Content:**
-- ✅ **25 Prophets with their specific duas** - Each prophet's authentic duas from Quran
-- ✅ **Prophet name meanings** - Etymology and significance of each prophet's name
-- ✅ **Complete translations** - All duas translated in 10 languages
+`allData.json` also includes the core dua categories, language metadata, and the
+103 entries formerly stored in `duas_1_to_103.json` under `duas1To103`.
 
 **Structure:**
 ```json
 {
-  "prophetsWithDuas": [...],           // 25 prophets with their duas
-  "prophetNamesWithMeanings": [...]    // 25 name meanings
+  "asmaUlHusna": [...],
+  "asmaUlAnbiya": [...],
+  "rabbanaDuas": [...],
+  "version": "...",
+  "metadata": {...},
+  "categories": [...],
+  "languages": [...],
+  "duas1To103": [...],
+  "prophetsWithDuas": [...],
+  "prophetNamesWithMeanings": [...]
 }
 ```
 
@@ -41,34 +37,18 @@ All TypeScript data files have been successfully converted to JSON format for be
 
 ## 🔄 Components Updated
 
-### Modified Files:
-1. **`src/components/AsmaUlHusnaView.tsx`**
-   - Changed: `import { asmaUlHusna } from '../data/completeLists'`
-   - To: `import completeListsData from '../data/completeLists.json'`
-   - Added: `const { asmaUlHusna } = completeListsData;`
-
-2. **`src/components/AsmaUlAnbiyaView.tsx`**
-   - Changed: `import { asmaUlAnbiya } from '../data/completeLists'`
-   - Changed: `import { prophetsWithDuas } from '../data/prophetsWithDuas'`
-   - To: `import completeListsData from '../data/completeLists.json'`
-   - To: `import prophetsWithDuasData from '../data/prophetsWithDuas.json'`
-   - Added: Destructuring for both data objects
-
-### Deleted Files:
-- ❌ `src/data/completeLists.ts` (replaced with JSON)
-- ❌ `src/data/prophetsWithDuas.ts` (replaced with JSON)
+`App.tsx`, `AsmaUlHusnaView.tsx`, and `AsmaUlAnbiyaView.tsx` read their data
+from the consolidated JSON file.
 
 ---
 
 ## 📊 Current Data Structure
 
-### All Data Files (JSON Only):
+### Data Files:
 ```
 src/data/
-├── duas.json                    # Core duas (17 categories)
+├── allData.json                 # Duas, names, prophets, and language data
 ├── expanded-duas.json           # Extended duas (20+ categories)
-├── completeLists.json           # 99 Names, 25 Prophets, 40 Rabbana Duas
-└── prophetsWithDuas.json        # Prophet-specific duas and name meanings
 ```
 
 ### Benefits of JSON Format:
@@ -83,13 +63,12 @@ src/data/
 
 ## 🎯 Data Statistics
 
-### completeLists.json:
+### allData.json:
 - **99 Names of Allah** - Complete with Arabic, transliteration, meanings
 - **25 Prophets** - Names, titles, time periods
 - **40 Rabbana Duas** - Quranic references, Arabic text, translations
 
-### prophetsWithDuas.json:
-- **25 Prophets with Duas** - Each prophet's authentic supplications
+- **3 Prophets with Duas** - Prophet-specific supplications in the current data
 - **25 Name Meanings** - Etymology and significance
 - **Multiple Languages** - EN, AR, UR, FR, TR, ID, BN, MS, TA, ML
 
@@ -125,7 +104,7 @@ src/data/
 ## 📝 How to Edit Data
 
 ### Adding a New Name of Allah:
-1. Open `src/data/completeLists.json`
+1. Open `src/data/allData.json`
 2. Find the `asmaUlHusna` array
 3. Add a new object:
 ```json
@@ -141,13 +120,13 @@ src/data/
 4. Save and rebuild
 
 ### Adding a New Prophet Dua:
-1. Open `src/data/prophetsWithDuas.json`
+1. Open `src/data/allData.json`
 2. Find the prophet in `prophetsWithDuas` array
 3. Add a new dua object to their `duas` array
 4. Save and rebuild
 
 ### Adding a New Rabbana Dua:
-1. Open `src/data/completeLists.json`
+1. Open `src/data/allData.json`
 2. Find the `rabbanaDuas` array
 3. Add a new object:
 ```json
@@ -204,12 +183,11 @@ src/data/
 ### JSON Schema:
 All JSON files follow consistent schemas:
 
-**completeLists.json:**
+**allData.json:**
 - `asmaUlHusna`: Array of 99 objects with `n`, `ar`, `tr`, `en`, `ta`, `ml`
 - `asmaUlAnbiya`: Array of 25 objects with `n`, `ar`, `en`, `ta`, `ml`, `title`, `years`
 - `rabbanaDuas`: Array of 40 objects with `n`, `ref`, `ar`, `en`
 
-**prophetsWithDuas.json:**
 - `prophetsWithDuas`: Array of 25 objects with prophet info and duas array
 - `prophetNamesWithMeanings`: Array of 25 objects with name meanings
 

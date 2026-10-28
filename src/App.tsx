@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import duasData from './data/duas.json';
+import duasData from './data/allData.json';
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 import { BookmarksProvider, useBookmarks } from './contexts/BookmarksContext';
 import { NotificationsProvider } from './contexts/NotificationsContext';
